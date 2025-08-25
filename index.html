@@ -49,7 +49,7 @@
             <br><br>
             <label>Tipo de Pagamento:
                 <input type="radio" id="opcao1" name="trabalho" value="Autonomo" checked
-                    onchange="calcValorTotal(tamanhoAcai.value)" >Dinheiro
+                    onchange="calcValorTotal(tamanhoAcai.value)">Dinheiro
                 <input type="radio" id="opcao2" name="trabalho" value="CLT"
                     onchange="calcValorTotal(tamanhoAcai.value)">Cartão
             </label>
@@ -96,26 +96,32 @@
     }
 
     function pagamento(valorPagamento) {
+        let troco = document.getElementById("troco")
+
         let ValorTotal = document.getElementById("ValorTotal").value;
+
 
         if (valorPagamento.value < 0) {
             alert("Digite um valor valido")
+            troco.value = '';
             valorPagamento.value = 0;
         } else if (ValorTotal == 0 || ValorTotal == '') {
             alert("Escolha o tamanho do seu açai")
             valorPagamento.value = 0;
+            troco.value = '';
         } else {
             const diferencaValor = (valorPagamento.value - ValorTotal);
 
             switch (true) {
                 case diferencaValor < 0:
-                    alert("Adicione a quantidade suficiente ou mais")
+                    alert("Valor Insuficiente")
+                    troco.value = '';
                     break;
                 case diferencaValor >= 0:
-                    document.getElementById("troco").value = diferencaValor;
+                    troco.value = diferencaValor;
                     break;
                 default:
-                    document.getElementById("troco").value = 0;
+                    troco.value = 0;
                     break;
             }
         }
